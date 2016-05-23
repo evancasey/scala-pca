@@ -1,0 +1,94 @@
+\documentclass[11pt]{article}
+\renewcommand{\baselinestretch}{1.05}
+\usepackage{amsmath,amsthm,verbatim,amssymb,amsfonts,amscd, graphicx}
+\usepackage{graphics}
+\topmargin0.0cm
+\headheight0.0cm
+\headsep0.0cm
+\oddsidemargin0.0cm
+\textheight23.0cm
+\textwidth16.5cm
+\footskip1.0cm
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{surfacecor}{Corollary 1}
+\newtheorem{conjecture}{Conjecture} 
+\newtheorem{question}{Question} 
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+
+\title{PCA}
+\author{Evan Casey}
+\maketitle
+
+\section{Introduction}
+
+-Exploring different ways of expressing PCA. 
+
+-SVD,PCA, Fast PCA
+
+-Turns out eigenvectors are really cool and useful!
+
+Principal Components Analysis is a method of reducing the dimension of set of points (or vectors) by removing linearly dependent variables. You can think of it as a form of lossy compression: given a large vector, can we come up with a smaller vector that encodes the same information?
+
+\subsection{Problem Statement}
+
+Let $X$ be an $m \times n$ matrix where each row $x^{(i)} \in \mathbb{R}^n$ is a n-dimensional input vector. Our goal is to compute $c^{(i)} \in \mathbb{R}^l$ where $l < n$ for each $x^{(i)}$, where $c^{(i)}$ is our lossy (lower dimension) version of the input vector. We'd like to find an encoding function $f(x) = c$ that maps each input vector into its "compressed" version.
+
+Turns out that PCA transformation is the same thing as changing the basis of matrix. Cool! To get an intuition for this, let's take the following example:
+
+Suppose we have a subspace $E$ for which $V = \{v_{1}, ...,v_{k}\}$ spans. This means that any point in $E$ can be expressed as a linear combination of the vectors in $V$. Let $a = c_1v_1 + ... + c_kv_k \in V$. $c_1,...,c_k$ are the coordinates of $a$ with respect to $V$. [Finish explanation of change of basis, etc]
+
+The basic algorithm for computing PCA follows as such:
+
+1) Compute the covariance matrix of $X$. The covariance matrix $A$ with elements $A_{i,j} = Cov(i,j)$. [Insert covariance equation here]
+
+2) Do eigenvalue decomposition on $A$. Eigenvalue decomposition attempts to find a set of eigenvectors $\{v_1, ..., v_n\}$ and corresponding eigenvalues $\{\gamma_1,..., \gamma_n\}$ [TODO: fix gamma] that satisfy the equation $Av_i = \gamma_i v_i}$. 
+
+3) Sort eigenvectors by highest eigenvalue. Top-k eigenvectors are the most signifant.
+
+4) Compute PCA:
+
+$FV = E$
+
+$RFV = FV^T$
+
+$FD = RFV * RDA$
+
+Why are eigenvectors useful here? Well eigenvectors have a couple key properties:
+
+1) Any eigenvector $v_i$ scaled by some arbitrary amount is still an eigenvector. In other words, they are fixed in direction under linear transformation (although magnitude can change).
+
+2) All eigenvectors of a matrix are orthogonal, no matter how many dimensions. ($x^Ty = 0$. This means the matrix of eigenvectors $e$ is diagonal.
+
+3) All columns are linearly independent! We can show this by substituting $v = I_n v$.
+
+
+
+Each eigenvector is essentially a dimension of $X$. Coordinates,
+
+Change of basis:
+
+$c[a]_B = a$
+
+One thing to mention is that we also have to normalize $X$ before computing the $A$.
+
+\subsection{Connection to OLS}
+
+Minimizes data orthogonal to the data itself!
+\subsection{The Transpose Trick}
+
+\subsection{SVD}
+
+\subsection{Eigenfaces}
+
+\section{References}
+
+ \url{\verb|http://www.cs.otago.ac.nz/cosc453/student_tutorials/principal_components.pdf|}
+  
+\end{document}
