@@ -10,7 +10,6 @@ trait PCA {
 
 }
 
-
 object EigenPCA extends PCA {
   import PCA._
 
@@ -23,21 +22,6 @@ object EigenPCA extends PCA {
     val rfv = ev.eigenvectors.toDenseMatrix
     rfv.t * rda
   }
-}
-
-object FastEigenPCA extends PCA {
-
-  // Goal: compute eigenvectors of the X*X^T, then multiply by X^T
-  def compute(trainX: DenseMatrix[Double], numComponents: Int): DenseMatrix[Double] = {
-    ???
-  }
-}
-
-object SVDPCA extends PCA {
-  def compute(trainX: DenseMatrix[Double], numComponents: Int): DenseMatrix[Double] = {
-    ???
-  }
-
 }
 
 object PCA {
